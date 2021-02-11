@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aspire-Index</title>
+
+  <!-- Bootstrap -->
+  <link href="/static/bootstrap-4.4.1.css" rel="stylesheet">
+  <link href="/static/datepicker.min.css" rel="stylesheet">
+
+  <link href="/static/style.css" rel="stylesheet" type="text/css">
+    <style>
+    body{
+    	background-image: url("/static/Bg_Image.png");
+    	}
+    </style>
+</head>
+
+<body>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 logo" style="margin-left:20px;">
+        <img src="/static/Aspire_Logo.png">
+      </div>
+      <!--div class="col-md-7 logout" >
+				<a href="#"><img src="/static/Logout.png"></a>
+			</div-->
+    </div>
+    <div class="container-fluid">
+      <div class="modal-lg-dialog">
+        <div class="modal-content shadow-lg p-3 mb-5 bg-white rounded" style="top:20px;">
+          <!-- <div class="row" style="margin: 20px; margin-left:10px;"><h4>Marketing Mix Modelling</h4></div> -->
+          <div class="row">
+            <div class="col-md-9">
+              <h4 style="padding-left:10px;">Marketing Mix Modeling</h4>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group" style="padding-left:10px;">
+                <label>Select Month</label>
+                <input type="text" class="form-control" name="datepicker" id="datepicker" />
+              </div>
+            </div>
+          </div>
+          <div class="row" style="padding: 10px;">
+            <div class="col-md-2">
+              <h6>Marketing Budget</h6>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group w-60">
+                <label style="height:50px" ;>Internet Campaign Budget ($)</label>
+                <div class="input-group mb-2">
+                  <input type="text" placeholder="000,000" class="form-control ip-numbers" name="qty" id="qty1"
+                    onkeyup="format(this)">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group w-60">
+                <label style="height:50px" ;>Social Media Campaign Budget ($)</label>
+                <div class="input-group mb-2">
+                  <input type="text" placeholder="000,000" class="form-control ip-numbers" name="qty" id="qty2"
+                    onkeyup="format(this)">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group w-60">
+                <label style="height:50px" ;>Television Campaign Budget ($)</label>
+                <div class="input-group mb-2">
+                  <input type="text" placeholder="000,000" class="form-control ip-numbers" name="qty" id="qty3"
+                    onkeyup="format(this)">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group w-60">
+                <label style="height:50px" ;>Radio Campaign Budget ($)</label>
+                <div class="input-group mb-2">
+                  <input type="text" placeholder="000,000" class="form-control ip-numbers" name="qty" id="qty4"
+                    onkeyup="format(this)">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group w-60">
+                <label style="height:50px" ;>Other Campaign Budget ($)</label>
+                <div class="input-group mb-2">
+                  <input type="text" placeholder="000,000" class="form-control ip-numbers" name="qty" id="qty5"
+                    onkeyup="format(this)">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" style="padding: 10px;">
+            <div class="col-md-2">
+              <h6>Leads per $1000</h6>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label id="iLeads">00</label>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label id="sLeads">00</label>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label id="tLeads">00</label>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label id="rLeads">00</label>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label id="oLeads">00</label>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row mb-4" style="padding:10px;">
+            <div class="col-md-8">
+              <!-- Warning Msg -->
+              <div class="alert alert-danger alert-dismissible mb-0" style="display:none;">
+                <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
+                <strong>Error!</strong> Alphabets/Symbols are not allowed, Please enter numbers.
+              </div>
+              <!-- Warning Msg -->
+
+              <!-- POPUP DATA -->
+
+              <div class="row" style="margin: 0px 20px 10px 0px; display:none;" id="panel">
+                <h4 style="display:inline-block;">Total Leads Predicted:&nbsp;&nbsp;</h4>
+                <label type="text" id="total" name="total" placeholder="1 "
+                  style="border:none; padding:5px; padding-top:0px;margin-top:-12px; font-size: 33px; color: coral; width:6em ; pointer-events: none;"></label>
+              </div>
+
+              <div class="row" style="padding: 10px;display:none;">
+                <div class="col-md-2">
+                  <div class="form-group  col-3">
+                    <label class="row" style="font-size:14px;height:85px;"><b>Internet Campaign Budget</b></label><br />
+                    <label id="lab1" class="row"></label>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group  col-3">
+                    <label class="row" style="font-size:14px;height:85px;"><b>Social Media Campaign
+                        Budget</b></label><br />
+                    <label id="lab2" class="row"></label>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group  col-3">
+                    <label class="row" style="font-size:14px;height:85px;"><b>Television Campaign
+                        Budget</b></label><br />
+                    <label id="lab3" class="row"></label>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group col-3">
+                    <label class="row" style="font-size:14px;height:85px;"><b>Radio Campaign Budget</b></label><br />
+                    <label id="lab4" class="row"></label>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group  col-3">
+                    <label class="row" style="font-size:14px;height:85px;"><b>Other Campaign Budget</b></label><br />
+                    <label id="lab5" class="row"></label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PopUP Data -->
+
+            </div>
+            <div class="col-md-4" style="padding-top:0.75rem;">
+              <button type="button" class="btn btn-primary float-right predict"
+                onClick="javascript:validateNumbers();">Predict</button>
+              <!-- <button type="button" class="btn btn-primary float-right" onClick="myFunction();javascript:sumInputs();">Predict</button> -->
+              <button type="button" id="clear-btn" class="btn btn-primary float-right mr-2"
+                onClick="reset();">Clear</button>
+              <button type="button" class="btn btn-primary float-right mr-2">Return to Dashboard</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <script type="text/javascript">
+      function format(input) {
+        var nStr = input.value + '';
+        nStr = nStr.replace(/\,/g, "");
+        x = nStr.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+          x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        input.value = x1 + x2;
+      }
+
+      /*code ends --*/
+      function validateNumbers() {
+
+       
+        $(".alert-danger").hide();
+
+        document.getElementById("panel").style.display = "none";
+        var isValid = true;
+        $(".ip-numbers").each(function () {
+          var a = $(this).val();
+          a = a.replace(/\,/g, ''); // 1125, but a string, so convert it to number
+          if (a == "")
+            a = 0;
+          // a=parseInt(a,10);
+          if (isNaN(a)) {
+            //  $(this).css('background', 'red');
+            $(".alert-danger").show();
+            isValid = false
+          } else {
+            //  $(this).css('background', 'green');
+          }
+        });
+        if (isValid === false) {
+          return false;
+        } else {
+          // alert("success");
+          document.getElementById("panel").style.display = "block";
+          getLeads();
+        }
+
+        // ========================
+        // var numbers = /^[0-9]+$/;
+        // var inputs = document.getElementsByClassName('ip-numbers');
+        // for(var i=0; i<inputs.length; i++) {
+        //   var ip = inputs[i];
+        //     if(ip.value.match(numbers)){
+        //       alert("IT is valid number");
+        //       document.getElementById("panel").style.display = "block";
+        //       sumInputs();
+        //     }
+        //     else{
+        //       alert("Not valid number");
+        //       break;
+        //     }
+        // }
+        // =====================
+      }
+
+    </script>
+    <script>
+      function myFunction() {
+
+        document.getElementById("panel").style.display = "block";
+        /*------*/
+
+        /*------*/
+      }
+    </script>
+    <script>
+      function myFunction1() {
+        document.getElementById("panel").style.display = "none";
+      }
+    </script>
+
+
+    <!-- popupend-->
+
+
+    <!--div class="row">
+          <div class="text-center col-lg-6 offset-lg-3">
+             <h4>Footer </h4>
+             <p>Copyright &copy; 2019 &middot; All Rights Reserved &middot; <a href="#" >My Website</a></p>
+          </div>
+       </div>
+    </div-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/static/jquery-3.4.1.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/static/javascript.js"></script>
+    <script src="/static/popper.min.js"></script>
+    <script src="/static/bootstrap-4.4.1.js"></script>
+    <script src="/static/bootstrap-datepicker.min.js"></script>
+</body>
+
+</html>
