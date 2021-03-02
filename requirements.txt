@@ -16,4 +16,4 @@ cloudpickle>=0.6.0
 scikit-learn==0.23.2
 joblib==0.14.1
 pickleshare==0.7.5
-Flask-Cors=>3.0
+Flask_Cors=>3.0
