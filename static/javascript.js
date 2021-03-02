@@ -38,6 +38,7 @@ function getDefaultDate() {
 function reset() {
     document.getElementById("panel").style.display = "none";
     $(".alert-danger").hide();
+    $(".outer-warning").hide();
     document.getElementById("qty1").value = "";
     document.getElementById("qty2").value = "";
     document.getElementById("qty3").value = "";

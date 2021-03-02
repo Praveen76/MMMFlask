@@ -3,7 +3,6 @@ from flask_cors import CORS
 import pandas as pd
 import numpy as np
 import pickle
-import os
 from utils import ScoringEngine
 
 # create the Flask app

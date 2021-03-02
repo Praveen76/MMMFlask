@@ -8,15 +8,15 @@
   <title>Aspire-Index</title>
 
   <!-- Bootstrap -->
-  <link href="/static/bootstrap-4.4.1.css" rel="stylesheet">
-  <link href="/static/datepicker.min.css" rel="stylesheet">
-
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap-4.4.1.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='datepicker.min.css') }}">
+  <link rel="text/javascript" href="{{ url_for('static', filename='javascript.js') }}">
   <link href="/static/style.css" rel="stylesheet" type="text/css">
-    <style>
-    body{
-    	background-image: url("/static/Bg_Image.png");
-    	}
-    </style>
+  <style>
+    body {
+      background-image: url("/static/Bg_Image.png");
+    }
+  </style>
 </head>
 
 <body>
@@ -130,10 +130,37 @@
 
           <div class="row mb-4" style="padding:10px;">
             <div class="col-md-8">
-              <!-- Warning Msg -->
+              <!-- error Msg -->
               <div class="alert alert-danger alert-dismissible mb-0" style="display:none;">
                 <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
                 <strong>Error!</strong> Alphabets/Symbols are not allowed, Please enter numbers.
+              </div>
+              <!-- error Msg -->
+
+              <!-- Warning Msg -->
+
+              <div class="outer-warning">
+                <div class="alert alert-warning alert-dismissible warning1 mb-0" style="display:none;">
+                  <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
+                  <strong>Warning! :</strong> Internet Expense saturation threshold of $150,000 exceeded
+                </div>
+                <div class="alert alert-warning alert-dismissible warning2 mb-0" style="display:none;">
+                  <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
+                  <strong>Warning! :</strong> Social Media Expense proposed range $ 500 to $ 800
+                </div>
+                <div class="alert alert-warning alert-dismissible warning3 mb-0" style="display:none;">
+                  <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
+                  <strong>Warning! :</strong> TV Expense saturation threshold of $100,000 exceeded
+                </div>
+                <div class="alert alert-warning alert-dismissible warning4 mb-0" style="display:none;">
+                  <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
+                  <strong>Warning! :</strong> Radio Expense proposed range $60,000 to $120,000
+                </div>
+                <div class="alert alert-warning alert-dismissible warning5 mb-0" id="warning5" style="display:none;">
+                  <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
+                  <strong>Warning! :</strong> Other Expense saturation threshold of $12,500 exceeded
+                </div>
+
               </div>
               <!-- Warning Msg -->
 
@@ -188,7 +215,7 @@
                 onClick="javascript:validateNumbers();">Predict</button>
               <!-- <button type="button" class="btn btn-primary float-right" onClick="myFunction();javascript:sumInputs();">Predict</button> -->
               <button type="button" id="clear-btn" class="btn btn-primary float-right mr-2"
-                onClick="reset();">Clear</button>
+                onClick="resetField();">Clear</button>
               <button type="button" class="btn btn-primary float-right mr-2">Return to Dashboard</button>
             </div>
           </div>
@@ -200,6 +227,57 @@
 
     <script type="text/javascript">
       function format(input) {
+        $(".outer-warning").show();
+        if (isNaN($('#qty5').val().replace(/\,/g, ''))) {
+          $('#qty5').focus();
+          $(".alert-danger").show();
+          $(".outer-warning").hide();
+        }
+        else if (isNaN($('#qty4').val().replace(/\,/g, ''))) {
+          $('#qty4').focus();
+          $(".alert-danger").show();
+          $(".outer-warning").hide();
+        }
+        else if (isNaN($('#qty3').val().replace(/\,/g, ''))) {
+          $('#qty3').focus();
+          $(".alert-danger").show();
+          $(".outer-warning").hide();
+        }
+        else if (isNaN($('#qty2').val().replace(/\,/g, ''))) {
+          $('#qty2').focus();
+          $(".alert-danger").show();
+          $(".outer-warning").hide();
+        }
+        else if (isNaN($('#qty1').val().replace(/\,/g, ''))) {
+          $('#qty1').focus();
+          $(".alert-danger").show();
+          $(".outer-warning").hide();
+        }
+        else {
+          $(".alert").hide();
+        }
+
+        if ((parseInt($('#qty1').val().replaceAll(',', '')) > 150000 || parseInt($('#qty1').val().replaceAll(',', '')) < 0)) {
+          $(".warning1").show();
+          $(".warning2").hide(); $(".warning3").hide(); $(".warning4").hide(); $(".warning5").hide();
+        }
+        if ((parseInt($('#qty2').val().replaceAll(',', '')) > 800 || parseInt($('#qty2').val().replaceAll(',', '')) < 500)) {
+          $(".warning1").hide(); $(".warning3").hide(); $(".warning4").hide(); $(".warning5").hide();
+          $(".warning2").show();
+        }
+        if ((parseInt($('#qty3').val().replaceAll(',', '')) > 100000 || parseInt($('#qty3').val().replaceAll(',', '')) < 0)) {
+          $(".warning3").show();
+          $(".warning2").hide(); $(".warning1").hide(); $(".warning4").hide(); $(".warning5").hide();
+        }
+        if ((parseInt($('#qty4').val().replaceAll(',', '')) > 120000 || parseInt($('#qty4').val().replaceAll(',', '')) < 60000)) {
+          $(".warning4").show();
+          $(".warning2").hide(); $(".warning3").hide(); $(".warning1").hide(); $(".warning5").hide();
+        }
+        if ((parseInt($('#qty5').val().replaceAll(',', '')) > 12500 || parseInt($('#qty5').val().replaceAll(',', '')) < 0)) {
+          $(".warning5").show();
+          $(".warning2").hide(); $(".warning3").hide(); $(".warning4").hide(); $(".warning1").hide();
+        }
+
         var nStr = input.value + '';
         nStr = nStr.replace(/\,/g, "");
         x = nStr.split('.');
@@ -212,10 +290,25 @@
         input.value = x1 + x2;
       }
 
-      /*code ends --*/
+      function resetField() {
+          document.getElementById("panel").style.display = "none";
+          $(".alert-danger").hide();
+          $(".outer-warning").hide();
+          document.getElementById("qty1").value = "";
+          document.getElementById("qty2").value = "";
+          document.getElementById("qty3").value = "";
+          document.getElementById("qty4").value = "";
+          document.getElementById("qty5").value = "";
+          document.getElementById("iLeads").innerHTML = "00";
+          document.getElementById("sLeads").innerHTML = "00";
+          document.getElementById("tLeads").innerHTML = "00";
+          document.getElementById("rLeads").innerHTML = "00";
+          document.getElementById("oLeads").innerHTML = "00";
+      }
+
       function validateNumbers() {
 
-       
+
         $(".alert-danger").hide();
 
         document.getElementById("panel").style.display = "none";
@@ -260,8 +353,6 @@
         // =====================
       }
 
-    </script>
-    <script>
       function myFunction() {
 
         document.getElementById("panel").style.display = "block";
@@ -269,11 +360,11 @@
 
         /*------*/
       }
-    </script>
-    <script>
+
       function myFunction1() {
         document.getElementById("panel").style.display = "none";
       }
+
     </script>
 
 
